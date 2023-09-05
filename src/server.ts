@@ -16,30 +16,19 @@ const app = express();
 app.use(express.json()); //add JSON body parser to each following route handler
 app.use(cors()); //add CORS support to each following route handler
 
-
-
-
 app.get("/", async (_req, res) => {
     try {
-        const lastEntry = await client.query("SELECT * FROM timestamptable ORDER BY time_stamp DESC LIMIT 1;");
-        res.status(200).json(lastEntry)
-        console.log(lastEntry)
+        const lastEntry = await client.query(
+            "SELECT * FROM timestamptable ORDER BY time_stamp DESC LIMIT 1;"
+        );
+        res.status(200).json(lastEntry);
+        console.log(lastEntry);
     } catch (error) {
         console.error(error);
         res.status(500).send("An error has occured!!!");
     }
     // res.json({ msg: "Hello! There's nothing interesting for GET /" }); // this is to be deleted
 });
-
-
-
-
-
-
-
-
-
-
 
 app.get("/health-check", async (_req, res) => {
     try {
