@@ -21,7 +21,7 @@ app.get("/", async (_req, res) => {
         const lastEntry = await client.query(
             "SELECT * FROM timestamptable ORDER BY time_stamp DESC LIMIT 1;"
         );
-        res.status(200).json(lastEntry);
+        res.status(200).json(lastEntry.rows);
         console.log(lastEntry);
     } catch (error) {
         console.error(error);
