@@ -27,18 +27,17 @@ app.get("/", async (_req, res) => {
         console.error(error);
         res.status(500).send("An error has occured!!!");
     }
-    // res.json({ msg: "Hello! There's nothing interesting for GET /" }); // this is to be deleted
 });
 
-app.get("/health-check", async (_req, res) => {
+app.post("/", async (_req, res) => {
     try {
-        //For this to be successful, must connect to db
-        await client.query("select now()");
-        res.status(200).send("system ok");
+        await client.query(
+            "INSERT INTO timestamptable (time_stamp) VALUES (CURRENT_TIMESTAMP);"
+        );
+        res.status(201).json({ status: "It worked" });
     } catch (error) {
-        //Recover from error rather than letting system halt
         console.error(error);
-        res.status(500).send("An error occurred. Check server logs.");
+        res.status(500).send("An error has occurred");
     }
 });
 
@@ -56,3 +55,6 @@ async function connectToDBAndStartListening() {
         );
     });
 }
+
+//////////////
+/////////////
